@@ -1,0 +1,7 @@
+services:
+  basictime:
+    build: .
+    container_name: go_compose_container
+    ports:
+      - "9003:9003"
+
