@@ -1,21 +1,22 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"time"
+	"log/slog"
 
 	"github.com/gin-gonic/gin"
 )
 
-func getCurrentTime(c *gin.Context) {
-	currentTime := time.Now().Format("2006-01-02 15:04:05")
-	c.JSON(http.StatusOK, gin.H{"current_time": currentTime})
+func main() {
+	startServer()
 }
 
-func main() {
+func startServer() {
 	r := gin.Default()
+
 	r.GET("/api/time", getCurrentTime)
-	log.Println(" --- Started")
+	r.GET("/api/getkey", getKey)
+	r.POST("/api/setkey", setKey)
+
+	slog.Info(" --- Started")
 	r.Run(":9003")
 }

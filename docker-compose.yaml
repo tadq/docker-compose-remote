@@ -2,6 +2,23 @@ services:
   basictime:
     build: .
     container_name: go_compose_container
+    # environment: # uses .env-prod instead
+    #   - REDIS_URL=redis:6379
+    depends_on:
+      - redis
     ports:
       - "9003:9003"
+    networks:
+      - localnet
 
+  redis:
+    image: redis:latest
+    # if port is not exposed it is not accessible from outside localnet bridge
+    # ports:
+    #   - "6379:6379"
+    networks:
+      - localnet
+
+networks:
+  localnet:
+    driver: bridge
